@@ -1,0 +1,5 @@
+
+Django>=6.0.2
+pillow
+jazzmin
+django-import-export

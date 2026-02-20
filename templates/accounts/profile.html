@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Profile | Ecomer{% endblock %}
+{% block content %}
+<div class="container py-5 d-flex justify-content-center align-items-center" style="min-height:70vh;">
+  <div class="card shadow p-4" style="max-width:500px; width:100%;">
+    <h2 class="mb-4 text-center">My Profile</h2>
+    <div class="mb-3"><strong>Username:</strong> {{ user.username }}</div>
+    <div class="mb-3"><strong>Email:</strong> {{ user.email }}</div>
+    <a href="{% url 'logout' %}" class="btn btn-danger w-100">Logout</a>
+  </div>
+</div>
+{% endblock %}
