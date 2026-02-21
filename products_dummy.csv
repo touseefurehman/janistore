@@ -1,51 +1,22 @@
-id,name,slug,category,image_link,price,old_price,short_description,description,is_featured,is_flash_sale,is_best_selling,is_new_arrival,is_explore,seo_title,seo_description
-1,Smartphone,smartphone,1,https://images.unsplash.com/photo-1511707171634-5f897ff02aa9,299.99,399.99,Latest smartphone,Full description,True,True,False,False,False,Smartphone SEO,Best smartphone
-2,Novel,novel,2,https://images.unsplash.com/photo-1512820790803-83ca734da794,19.99,29.99,Popular novel,Full description,False,False,True,True,False,Novel SEO,Best novel
-3,Headphones,headphones,1,https://images.unsplash.com/photo-1511367461989-f85a21fda167,49.99,79.99,Wireless headphones,Full description,True,False,True,False,False,Headphones SEO,Best headphones
-4,Laptop,laptop,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,899.99,1099.99,High performance laptop,Full description,True,True,True,False,False,Laptop SEO,Best laptop
-5,Tablet,tablet,1,https://images.unsplash.com/photo-1519125323398-675f0ddb6308,199.99,299.99,Portable tablet,Full description,False,True,False,True,False,Tablet SEO,Best tablet
-6,Camera,camera,1,https://images.unsplash.com/photo-1519125323398-675f0ddb6308,499.99,599.99,DSLR camera,Full description,True,False,True,False,False,Camera SEO,Best camera
-7,Watch,watch,1,https://images.unsplash.com/photo-1465101046530-73398c7f28ca,99.99,149.99,Smart watch,Full description,False,True,False,True,False,Watch SEO,Best watch
-8,Backpack,backpack,2,https://images.unsplash.com/photo-1506744038136-46273834b3fb,39.99,59.99,Travel backpack,Full description,True,False,True,False,False,Backpack SEO,Best backpack
-9,Shoes,shoes,2,https://images.unsplash.com/photo-1519864600265-abb23847ef2c,59.99,89.99,Running shoes,Full description,False,True,False,True,False,Shoes SEO,Best shoes
-10,Glasses,glasses,2,https://images.unsplash.com/photo-1517841905240-472988babdf9,29.99,49.99,Stylish glasses,Full description,True,False,True,False,False,Glasses SEO,Best glasses
-11,Book,book,2,https://images.unsplash.com/photo-1512820790803-83ca734da794,14.99,24.99,Bestselling book,Full description,False,True,False,True,False,Book SEO,Best book
-12,Speaker,speaker,1,https://images.unsplash.com/photo-1511367461989-f85a21fda167,79.99,99.99,Bluetooth speaker,Full description,True,False,True,False,False,Speaker SEO,Best speaker
-13,Mouse,mouse,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,19.99,29.99,Wireless mouse,Full description,False,True,False,True,False,Mouse SEO,Best mouse
-14,Keyboard,keyboard,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,49.99,69.99,Mechanical keyboard,Full description,True,False,True,False,False,Keyboard SEO,Best keyboard
-15,Monitor,monitor,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,199.99,249.99,HD monitor,Full description,False,True,False,True,False,Monitor SEO,Best monitor
-16,Desk,desk,1,https://images.unsplash.com/photo-1519125323398-675f0ddb6308,149.99,199.99,Office desk,Full description,True,False,True,False,False,Desk SEO,Best desk
-17,Chair,chair,1,https://images.unsplash.com/photo-1519125323398-675f0ddb6308,89.99,129.99,Ergonomic chair,Full description,False,True,False,True,False,Chair SEO,Best chair
-18,Pen,pen,2,https://images.unsplash.com/photo-1512820790803-83ca734da794,2.99,4.99,Premium pen,Full description,True,False,True,False,False,Pen SEO,Best pen
-19,Notebook,notebook,2,https://images.unsplash.com/photo-1512820790803-83ca734da794,5.99,9.99,Classic notebook,Full description,False,True,False,True,False,Notebook SEO,Best notebook
-20,Wallet,wallet,2,https://images.unsplash.com/photo-1517841905240-472988babdf9,24.99,39.99,Leather wallet,Full description,True,False,True,False,False,Wallet SEO,Best wallet
-21,Hat,hat,2,https://images.unsplash.com/photo-1517841905240-472988babdf9,14.99,19.99,Stylish hat,Full description,False,True,False,True,False,Hat SEO,Best hat
-22,Scarf,scarf,2,https://images.unsplash.com/photo-1517841905240-472988babdf9,9.99,14.99,Warm scarf,Full description,True,False,True,False,False,Scarf SEO,Best scarf
-23,Belt,belt,2,https://images.unsplash.com/photo-1517841905240-472988babdf9,12.99,19.99,Leather belt,Full description,False,True,False,True,False,Belt SEO,Best belt
-24,Blender,blender,1,https://images.unsplash.com/photo-1519125323398-675f0ddb6308,49.99,69.99,Kitchen blender,Full description,True,False,True,False,False,Blender SEO,Best blender
-25,Toaster,toaster,1,https://images.unsplash.com/photo-1519125323398-675f0ddb6308,29.99,39.99,Electric toaster,Full description,False,True,False,True,False,Toaster SEO,Best toaster
-26,Microwave,microwave,1,https://images.unsplash.com/photo-1519125323398-675f0ddb6308,99.99,129.99,Microwave oven,Full description,True,False,True,False,False,Microwave SEO,Best microwave
-27,Fridge,fridge,1,https://images.unsplash.com/photo-1519125323398-675f0ddb6308,499.99,599.99,Double door fridge,Full description,False,True,False,True,False,Fridge SEO,Best fridge
-28,TV,tv,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,399.99,499.99,Smart TV,Full description,True,False,True,False,False,TV SEO,Best TV
-29,Game Console,game-console,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,299.99,399.99,Next-gen console,Full description,False,True,False,True,False,Console SEO,Best console
-30,Drone,drone,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,199.99,299.99,Camera drone,Full description,True,False,True,False,False,Drone SEO,Best drone
-31,Tripod,tripod,1,https://images.unsplash.com/photo-1519125323398-675f0ddb6308,29.99,39.99,Camera tripod,Full description,False,True,False,True,False,Tripod SEO,Best tripod
-32,Flashlight,flashlight,1,https://images.unsplash.com/photo-1519125323398-675f0ddb6308,9.99,14.99,LED flashlight,Full description,True,False,True,False,False,Flashlight SEO,Best flashlight
-33,Power Bank,power-bank,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,24.99,34.99,Portable power bank,Full description,False,True,False,True,False,Power Bank SEO,Best power bank
-34,Charger,charger,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,14.99,19.99,Fast charger,Full description,True,False,True,False,False,Charger SEO,Best charger
-35,USB Cable,usb-cable,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,4.99,7.99,Durable USB cable,Full description,False,True,False,True,False,USB Cable SEO,Best USB cable
-36,Memory Card,memory-card,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,19.99,29.99,High speed memory card,Full description,True,False,True,False,False,Memory Card SEO,Best memory card
-37,Router,router,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,49.99,69.99,WiFi router,Full description,False,True,False,True,False,Router SEO,Best router
-38,Projector,projector,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,199.99,249.99,HD projector,Full description,True,False,True,False,False,Projector SEO,Best projector
-39,Printer,printer,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,99.99,129.99,Wireless printer,Full description,False,True,False,True,False,Printer SEO,Best printer
-40,Scanner,scanner,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,59.99,79.99,Document scanner,Full description,True,False,True,False,False,Scanner SEO,Best scanner
-41,Tablet Stand,tablet-stand,1,https://images.unsplash.com/photo-1519125323398-675f0ddb6308,14.99,19.99,Adjustable tablet stand,Full description,False,True,False,True,False,Tablet Stand SEO,Best tablet stand
-42,Phone Case,phone-case,1,https://images.unsplash.com/photo-1511707171634-5f897ff02aa9,9.99,14.99,Protective phone case,Full description,True,False,True,False,False,Phone Case SEO,Best phone case
-43,Screen Protector,screen-protector,1,https://images.unsplash.com/photo-1511707171634-5f897ff02aa9,4.99,7.99,Tempered glass protector,Full description,False,True,False,True,False,Screen Protector SEO,Best screen protector
-44,Selfie Stick,selfie-stick,1,https://images.unsplash.com/photo-1519125323398-675f0ddb6308,7.99,12.99,Extendable selfie stick,Full description,True,False,True,False,False,Selfie Stick SEO,Best selfie stick
-45,VR Headset,vr-headset,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,149.99,199.99,Virtual reality headset,Full description,False,True,False,True,False,VR Headset SEO,Best VR headset
-46,Smart Light,smart-light,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,24.99,34.99,WiFi smart light,Full description,True,False,True,False,False,Smart Light SEO,Best smart light
-47,Smart Plug,smart-plug,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,19.99,29.99,Remote smart plug,Full description,False,True,False,True,False,Smart Plug SEO,Best smart plug
-48,Smart Thermostat,smart-thermostat,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,99.99,129.99,WiFi thermostat,Full description,True,False,True,False,False,Thermostat SEO,Best thermostat
-49,Smart Lock,smart-lock,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,129.99,179.99,Keyless smart lock,Full description,False,True,False,True,False,Smart Lock SEO,Best smart lock
-50,Security Camera,security-camera,1,https://images.unsplash.com/photo-1517336714731-489689fd1ca8,59.99,89.99,Home security camera,Full description,True,False,True,False,False,Security Camera SEO,Best security camera
+name,slug,category,image_link,price,old_price,short_description,description,is_featured,is_flash_sale,is_best_selling,is_new_arrival,is_explore,seo_title,seo_description
+Wireless Headphones,wireless-headphones,electronics,https://picsum.photos/seed/wireless-headphones/600/600,99.99,129.99,"High quality sound","Lorem ipsum dolor sit amet, consectetur adipiscing elit.",True,False,True,False,True,"Wireless Headphones Online","Best headphones for music"
+Smartphone,smartphone,electronics,https://picsum.photos/seed/smartphone/600/600,499.99,599.99,"Latest model phone","Powerful processor and high resolution camera.",True,True,True,False,True,"Latest Smartphone","Top smartphone with advanced features"
+Laptop,laptop,electronics,https://picsum.photos/seed/laptop/600/600,899.99,999.99,"Lightweight and fast","Perfect for work and gaming.",True,False,True,False,True,"Laptop Collection","High performance laptops"
+Bluetooth Speaker,bluetooth-speaker,electronics,https://picsum.photos/seed/bluetooth-speaker/600/600,59.99,79.99,"Portable speaker","Crystal clear sound for indoor and outdoor.",False,True,True,True,False,"Bluetooth Speaker","Best portable speaker"
+Smart Watch,smart-watch,electronics,https://picsum.photos/seed/smart-watch/600/600,199.99,229.99,"Track your fitness","Monitor heart rate, steps, and sleep patterns.",True,False,True,False,True,"Smart Watch Online","Latest smart watch with health tracking"
+Tablet,tablet,electronics,https://picsum.photos/seed/tablet/600/600,299.99,349.99,"Portable tablet","High resolution screen and fast performance.",False,True,True,True,False,"Tablet Collection","Top tablets for work and entertainment"
+Camera,camera,electronics,https://picsum.photos/seed/camera/600/600,449.99,499.99,"High quality camera","Capture professional photos easily.",True,False,True,False,True,"Camera Collection","Best cameras for photography"
+Earbuds,earbuds,electronics,https://picsum.photos/seed/earbuds/600/600,59.99,79.99,"Noise cancelling earbuds","Crystal clear audio with comfortable fit.",False,True,True,True,False,"Earbuds Collection","Top earbuds for music lovers"
+Gaming Console,gaming-console,electronics,https://picsum.photos/seed/gaming-console/600/600,399.99,449.99,"Next-gen console","Play latest games with high performance.",True,False,True,False,True,"Gaming Console Online","Best gaming console"
+Portable Charger,portable-charger,electronics,https://picsum.photos/seed/portable-charger/600/600,29.99,39.99,"Fast charging","Compact and powerful portable charger.",False,True,True,True,False,"Portable Charger","Top portable charger for devices"
+Summer Dress,summer-dress,fashion,https://picsum.photos/seed/summer-dress/600/600,49.50,,"Lightweight and stylish","Comfortable and perfect for summer days.",False,True,False,True,False,"Summer Dress Collection","Fashionable summer wear"
+Jeans,jeans,fashion,https://picsum.photos/seed/jeans/600/600,39.99,49.99,"Classic denim jeans","Durable and stylish for everyday wear.",True,False,True,False,True,"Jeans Collection","Best denim jeans"
+Sneakers,sneakers,fashion,https://picsum.photos/seed/sneakers/600/600,59.99,69.99,"Comfortable sneakers","Perfect for running and casual outings.",False,True,True,True,False,"Sneakers Online","Top quality sneakers"
+Handbag,handbag,fashion,https://picsum.photos/seed/handbag/600/600,79.99,99.99,"Stylish handbag","High quality leather and spacious design.",True,False,True,False,True,"Handbag Collection","Elegant handbags for women"
+Jacket,jacket,fashion,https://picsum.photos/seed/jacket/600/600,89.99,109.99,"Warm winter jacket","Keeps you warm and stylish during cold seasons.",False,False,True,True,False,"Winter Jacket","Best winter jackets"
+T-Shirt,t-shirt,fashion,https://picsum.photos/seed/t-shirt/600/600,19.99,29.99,"Casual t-shirt","Soft cotton, comfortable for everyday wear.",True,False,True,False,True,"T-Shirt Collection","Top t-shirts for men and women"
+Cap,cap,fashion,https://picsum.photos/seed/cap/600/600,14.99,,"Stylish cap","Perfect for sunny days.",False,True,True,True,False,"Cap Collection","Popular fashion cap"
+Socks,socks,fashion,https://picsum.photos/seed/socks/600/600,5.99,,"Comfortable socks","Soft and breathable material.",True,False,True,False,True,"Socks Collection","Top socks for everyday use"
+Watch,watch,fashion,https://picsum.photos/seed/watch/600/600,129.99,149.99,"Elegant wrist watch","Perfect accessory for any outfit.",False,True,True,True,False,"Watch Collection","Best fashion watch"
+Belt,belt,fashion,https://picsum.photos/seed/belt/600/600,24.99,29.99,"Leather belt","Durable and stylish leather belt.",True,False,True,False,True,"Belt Collection","Top belts for fashion"
+Scarf,scarf,fashion,https://picsum.photos/seed/scarf/600/600,19.99,,"Warm scarf","Soft and cozy for winter.",False,True,True,True,False,"Scarf Collection","Best scarves for winter"

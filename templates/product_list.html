@@ -1,51 +1,140 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container mt-4">
-    <h2>All Products</h2>
+
+<style>
+:root {
+    --accent: #E75480; /* Soft Rose */
+}
+
+/* All pagination links */
+.pagination .page-link {
+    color: var(--accent) !important;
+    border-color: var(--accent) !important;
+    transition: all 0.3s ease;
+}
+
+/* Active page link */
+.pagination .page-item.active .page-link {
+    background-color: var(--accent) !important; /* soft rose bg */
+    border-color: var(--accent) !important;
+    color: #fff !important;                     /* white text */
+}
+
+/* Hovered links */
+.pagination .page-link:hover {
+    background-color: var(--accent) !important;
+    border-color: var(--accent) !important;
+    color: #fff !important;
+}
+
+/* Previous/Next arrows same style */
+.pagination .page-item:first-child .page-link,
+.pagination .page-item:last-child .page-link {
+    color: var(--accent) !important;
+    border-color: var(--accent) !important;
+}
+
+/* Disabled pages remain gray */
+.pagination .page-item.disabled .page-link {
+    color: #ccc !important;
+    border-color: #ccc !important;
+}
+</style>
+<div class="container pt-5  mt-4">
+    <h2 class="mb-5" style="color: var(--accent);"><b>
+
+        All Products
+    </b>
+    </h2>
         <div class="row">
-            {% for product in products %}
+{% for product in page_obj %}
             <div class="col-md-3 mb-4">
-                <div class="card border-0 shadow-sm p-2 product-card" style="width:220px;">
-                    <a href="{% url 'product_detail' product.id %}">
-                        {% if product.image_link %}
-                            <img src="{{ product.image_link }}" class="card-img-top" style="height:130px;object-fit:cover;">
-                        {% else %}
-                            <img src="{{ product.image.url }}" class="card-img-top" style="height:130px;object-fit:cover;">
-                        {% endif %}
-                    </a>
-                    <div class="add-to-cart-overlay">
-                        <a href="{% url 'product_detail' product.id %}" class="btn btn-sm btn-danger"><i class="bi bi-cart-plus"></i> Add To Cart</a>
+                   <div class="card h-100 shadow-sm border-0 text-center">
+
+                        <!-- Image Wrapper -->
+                        <div class="ratio ratio-1x1">
+                            {% if product.image_link %}
+                            <img src="{{ product.image_link }}" class="img-fluid object-fit-cover"
+                                alt="{{ product.name }}">
+                            {% else %}
+                            <img src="{{ product.image.url }}" class="img-fluid object-fit-cover"
+                                alt="{{ product.name }}">
+                            {% endif %}
+                        </div>
+
+                        <div class="card-body d-flex flex-column">
+
+                            <h6 class="card-title mb-2">{{ product.name }}</h6>
+
+                            <p class="fw-bold mb-3">
+                                RS{{ product.price }}
+                            </p>
+
+                            
+                            <a href="{% url 'product_detail' product.id %}" class="btn text-decoration-none">
+                                <i class="bi bi-cart-plus me-1"></i>
+                                                Shop Now
+                                            </button>
+                                            </a>
+
+                        </div>
                     </div>
-                    <a href="{% url 'product_detail' product.id %}" class="text-decoration-none text-dark">
-                        <p class="fw-bold mt-1 mb-0">{{ product.name }}</p>
-                    </a>
-                    <span class="fw-bold">${{ product.price }}</span>
-                </div>
             </div>
             {% endfor %}
         </div>
-        {% if page_obj.has_other_pages %}
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                {% if page_obj.has_previous %}
-                    <li class="page-item"><a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ page_obj.previous_page_number }}">Previous</a></li>
-                {% else %}
-                    <li class="page-item disabled"><span class="page-link">Previous</span></li>
-                {% endif %}
-                {% for num in page_obj.paginator.page_range %}
-                    {% if page_obj.number == num %}
-                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                        <li class="page-item"><a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ num }}">{{ num }}</a></li>
-                    {% endif %}
-                {% endfor %}
-                {% if page_obj.has_next %}
-                    <li class="page-item"><a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ page_obj.next_page_number }}">Next</a></li>
-                {% else %}
-                    <li class="page-item disabled"><span class="page-link">Next</span></li>
-                {% endif %}
-            </ul>
-        </nav>
+ {% if page_obj.has_other_pages %}
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+
+        {# Previous button with arrow #}
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only"></span>
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only"></span>
+                </span>
+            </li>
         {% endif %}
+
+        {# Page numbers #}
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ num }}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {# Next button with arrow #}
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ page_obj.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only"></span>
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only"></span>
+                </span>
+            </li>
+        {% endif %}
+
+    </ul>
+</nav>
+{% endif %}
 </div>
 {% endblock %}

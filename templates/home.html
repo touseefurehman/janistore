@@ -1,24 +1,27 @@
 {% extends 'base.html' %}
 {% block extra_head %}
-    <!-- Add Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<!-- Add Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 {% endblock %}
 
 {% block content %}
 <style>
-    a{
+    a {
         text-decoration: none !important;
     }
-    .cat_links a{
+
+    .cat_links a {
         font-size: 18px;
         font-weight: 700;
     }
-    .cat_links li a{
+
+    .cat_links li a {
         position: relative;
         display: inline-block;
         transition: 0.3s ease;
     }
-    .cat_links li a::after{
+
+    .cat_links li a::after {
         content: "";
         position: absolute;
         width: 0%;
@@ -28,7 +31,8 @@
         background-color: #000;
         transition: 0.3s ease;
     }
-    .cat_links li a:hover::after{
+
+    .cat_links li a:hover::after {
         width: 100%;
     }
 
@@ -41,6 +45,7 @@
         align-items: stretch;
         overflow: hidden;
     }
+
     .product-card .card-img-top {
         width: 100%;
         height: 160px;
@@ -48,7 +53,10 @@
         border-radius: 12px 12px 0 0;
         margin-bottom: 8px;
     }
-    .product-card .fw-bold, .product-card .fw-bold.mt-1, .product-card .mb-0.fw-bold.mt-2 {
+
+    .product-card .fw-bold,
+    .product-card .fw-bold.mt-1,
+    .product-card .mb-0.fw-bold.mt-2 {
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
@@ -59,126 +67,263 @@
         max-height: 2.6em;
         font-size: 1rem;
     }
+
+    /* ===============================
+   HERO SLIDER CUSTOM DESIGN
+================================= */
+
+    /* Hide side arrows */
+    .carousel-control-prev,
+    .carousel-control-next {
+        display: none;
+    }
+
+    /* Allow caption to overflow */
+    .carousel-inner {
+        position: relative;
+        overflow: visible;
+    }
+
+    /* Image styling */
+    .carousel-item img {
+        height: 400px;
+        object-fit: cover;
+        border-radius: 20px;
+    }
+
+    /* Round Dots */
+    .carousel-indicators {
+        bottom: -55px;
+    }
+
+    .carousel-indicators [data-bs-target] {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #e5d5c7;
+        border: none;
+        opacity: 1;
+        margin: 0 6px;
+        transition: 0.3s;
+    }
+
+    .carousel-indicators .active {
+        background-color: #b88e6f;
+        width: 13px;
+        height: 13px;
+    }
+
+    /* Floating Caption Box */
+    .hero-caption {
+        position: absolute;
+        bottom: -70px;
+        /* Half outside */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 65%;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 25px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+        text-align: center;
+    }
+
+    /* Caption Text */
+    .hero-caption h4 {
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .hero-caption p {
+        font-size: 14px;
+        color: #777;
+        margin-bottom: 15px;
+    }
+
+    /* Button Styling */
+    .hero-caption .btn {
+        background-color: #b88e6f;
+        border: none;
+        border-radius: 50px;
+        padding: 8px 25px;
+        font-size: 14px;
+    }
+
+    .hero-caption .btn:hover {
+        background-color: #a3795c;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .flash-countdown .time {
+    background: #fff;
+    padding: 10px 18px;
+    border-radius: 12px;
+    min-width: 70px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.flash-countdown h1 {
+    font-size: 28px;
+    transition: 0.25s ease;
+}
+
+.flash-countdown h1.animate {
+    transform: translateY(-3px) scale(1.1);
+    color: #DB4444;
+}
 </style>
 
 
-    <div class="container border-top border-1 border-dark">
-        <div class="row align-items-start ">
-            <div class="col-md-3 border-end border-1 border-dark">
-              <ul class="list-unstyled cat_links small py-5">
-                {% for category in categories|slice:":8" %}
-                    <li>
-                        <a href="{% url 'category' category.slug %}">
-                            <i class=""></i> {{ category.name }}
+<div class="container border-top border-1 border-dark">
+    <div class="row align-items-start  pt-5">
+          <div class="col-md-12">
+
+        <div id="heroSlider" class="carousel slide carousel-fade mb-5" data-bs-ride="carousel" data-bs-interval="3000"
+            data-bs-wrap="true">
+            <!-- Slides -->
+            <div class="carousel-inner rounded-4 shadow">
+
+                {% for product in hero_products %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" class="d-block w-100" alt="{{ product.name }}">
+                    {% elif product.image_link %}
+                    <img src="{{ product.image_link }}" class="d-block w-100" alt="{{ product.name }}">
+                    {% else %}
+                    <img src="/static/images/no-image.png" class="d-block w-100" alt="No Image">
+                    {% endif %}
+                    <!-- Custom Floating Caption -->
+                    <div class="hero-caption">
+                        <h4>{{ product.name }}</h4>
+                        <p>{{ product.short_description }}</p>
+                        <a href="{% url 'product_detail' product.id %}" class="btn text-white">
+                            Shop Now
                         </a>
-                    </li>
+                    </div>
+                </div>
                 {% endfor %}
-            </ul>
-
-            </div>
-            <div class="col-md-9">
-                <div id="heroSlider" class="carousel slide carousel-fade mb-5" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        {% for product in hero_products %}
-                        <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}" aria-current="true" aria-label="Slide {{ forloop.counter }}"></button>
-                        {% endfor %}
-                    </div>
-                    <div class="carousel-inner rounded-4 shadow">
-                        {% for product in hero_products %}
-                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                            {% if product.image_link %}
-                                <img src="{{ product.image_link }}" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="{{ product.name }}">
-                            {% else %}
-                                <img src="{{ product.image.url }}" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="{{ product.name }}">
-                            {% endif %}
-                            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-3">
-                                <h4>{{ product.name }}</h4>
-                                <p>{{ product.short_description }}</p>
-                                <a href="{% url 'product_detail' product.id %}" class="btn btn-primary">View Product</a>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#heroSlider" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#heroSlider" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <!-- Flash Sales Section -->
-        {% if featured_products %}
-        <a href="{% url 'product_list' %}?flash_sale=1" style="text-decoration:none;">
-            <div class="d-flex align-items-center gap-3" style="cursor:pointer;">
-                <div class="box-red" style="background-color: #DB4444; width: 50px; height: 50px; margin-bottom: 10px;border-radius: 12px;"></div>
-                <h4 style="color: #DB4444;"><b>Today's</b></h4>
-            </div>
+<!-- Flash Sales Section -->
+{% if featured_products %}
+<a href="{% url 'product_list' %}?flash_sale=1" style="text-decoration:none;">
+    <div class="d-flex align-items-center gap-3" style="cursor:pointer;">
+        <div class="box-red"
+            style="background-color: #DB4444; width: 50px; height: 50px; margin-bottom: 10px;border-radius: 12px;">
+        </div>
+        <h4 style="color: #DB4444;"><b>Today's</b></h4>
+    </div>
+</a>
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-4 mt-2">
+    <div>
+        <a href="{% url 'product_list' %}?flash_sale=1" style="text-decoration:none; color:inherit;">
+            <h3 class="fw-bold pt-4 mb-0" style="font-size: 42px;">Flash Sales</h3>
         </a>
-        <div class="d-flex flex-wrap align-items-center justify-content-between gap-4 mt-2">
-            <div>
-                <a href="{% url 'product_list' %}?flash_sale=1" style="text-decoration:none; color:inherit;">
-                    <h3 class="fw-bold pt-4 mb-0" style="font-size: 42px;">Flash Sales</h3>
-                </a>
-            </div>
-            <div class="d-flex align-items-center gap-4">
-                <div class="time text-center"><h6 class="mb-0">Days</h6><h1 class="mb-0">03</h1></div>
-                <div class="time text-center"><h6 class="mb-0">Hours</h6><h1 class="mb-0">12</h1></div>
-                <div class="time text-center"><h6 class="mb-0">Minutes</h6><h1 class="mb-0">45</h1></div>
-                <div class="time text-center"><h6 class="mb-0">Seconds</h6><h1 class="mb-0">30</h1></div>
-            </div>
-        </div>
-        
-        <div class="container mt-5">
-            <div class="section-title">
-                <h3 class="fw-bold mb-0">Flash Sales</h3>
-                {% if featured_products|length > 5 %}
-                <div class="nav-buttons">
-                    <button class="btn btn-outline-dark btn-sm flash-prev" style="border-radius:50%;width:40px;height:40px;"><i class="bi bi-chevron-left"></i></button>
-                    <button class="btn btn-outline-dark btn-sm flash-next" style="border-radius:50%;width:40px;height:40px;"><i class="bi bi-chevron-right"></i></button>
-                </div>
-                {% endif %}
-            </div>
-            
-            <div class="swiper flashSwiper">
-                <div class="swiper-wrapper">
-                    {% for product in featured_products %}
-                    <div class="swiper-slide">
-                        <div class="card m-1 h-100 border-0 shadow-sm product-card" style="width:220px;">
-                            {% if product.image_link %}
-                                <img src="{{ product.image_link }}" class="card-img-top" style="height:130px;">
-                            {% else %}
-                                <img src="{{ product.image.url }}" class="card-img-top" style="height:130px;">
-                            {% endif %}
-                            <div class="card-body p-2 text-center">
-                                <form method="post" action="/cart/add/{{ product.id }}/">{% csrf_token %}
-                                    <button class="btn btn-sm btn-dark w-100"><i class="bi bi-cart-plus"></i> Add To Cart</button>
-                                </form>
-                                <h6 class="small">{{ product.name }}</h6>
-                                <p class="fw-bold mb-1">${{ product.price }} <span class="text-muted">({{ product.id }})</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
+    </div>
+  
+<div class="d-flex align-items-center gap-4 flash-countdown">
+    <div class="time text-center">
+        <h6 class="mb-0 small text-muted">Days</h6>
+        <h1 class="mb-0 fw-bold" id="flashDays">03</h1>
+    </div>
+    <div class="time text-center">
+        <h6 class="mb-0 small text-muted">Hours</h6>
+        <h1 class="mb-0 fw-bold" id="flashHours">00</h1>
+    </div>
+    <div class="time text-center">
+        <h6 class="mb-0 small text-muted">Minutes</h6>
+        <h1 class="mb-0 fw-bold" id="flashMinutes">00</h1>
+    </div>
+    <div class="time text-center">
+        <h6 class="mb-0 small text-muted">Seconds</h6>
+        <h1 class="mb-0 fw-bold text-danger" id="flashSeconds">00</h1>
+    </div>
+</div>
+
+
+</div>
+
+<div class="container mt-5">
+    <div class="section-title">
+        <h3 class="fw-bold mb-0">Flash Sales</h3>
+        {% if featured_products|length > 5 %}
+        <div class="nav-buttons">
+            <button class="btn btn-outline-dark btn-sm flash-prev" style="border-radius:50%;width:40px;height:40px;"><i
+                    class="bi bi-chevron-left"></i></button>
+            <button class="btn btn-outline-dark btn-sm flash-next" style="border-radius:50%;width:40px;height:40px;"><i
+                    class="bi bi-chevron-right"></i></button>
         </div>
         {% endif %}
+    </div>
 
-        <!-- Browse By Category -->
- <div class="d-flex justify-content-between align-items-center mt-5">
+    <div class="swiper flashSwiper">
+        <div class="swiper-wrapper">
+            {% for product in featured_products %}
+            <div class="swiper-slide">
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0 text-center">
+
+                        <!-- Image Wrapper -->
+                        <div class="ratio ratio-1x1">
+                            {% if product.image_link %}
+                            <img src="{{ product.image_link }}" class="img-fluid object-fit-cover"
+                                alt="{{ product.name }}">
+                            {% else %}
+                            <img src="{{ product.image.url }}" class="img-fluid object-fit-cover"
+                                alt="{{ product.name }}">
+                            {% endif %}
+                        </div>
+
+                        <div class="card-body d-flex flex-column">
+
+                            <h6 class="card-title mb-2">{{ product.name }}</h6>
+
+                            <p class="fw-bold mb-3">
+                                RS{{ product.price }}
+                            </p>
+
+                            
+                            <a href="{% url 'product_detail' product.id %}" class="btn text-decoration-none">
+                                <i class="bi bi-cart-plus me-1"></i>
+                                                Shop Now
+                                            </button>
+                                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Browse By Category -->
+<div class="d-flex justify-content-between align-items-center mt-5">
     <h5 class="fw-semibold">Browse By Category</h5>
     <div>
-        <button class="btn btn-sm btn-outline-secondary me-1"
-                onclick="scrollCategories(-300)">
+        <button class="btn btn-sm btn-outline-secondary me-1" onclick="scrollCategories(-300)">
             <i class="bi bi-chevron-left"></i>
         </button>
-        <button class="btn btn-sm btn-outline-secondary"
-                onclick="scrollCategories(300)">
+        <button class="btn btn-sm btn-outline-secondary" onclick="scrollCategories(300)">
             <i class="bi bi-chevron-right"></i>
         </button>
     </div>
@@ -186,33 +331,31 @@
 
 
 <style>
-#categoryScroll {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE 10+ */
-}
-#categoryScroll::-webkit-scrollbar {
-    display: none; /* Chrome/Safari/Webkit */
-}
+    #categoryScroll {
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* IE 10+ */
+    }
+
+    #categoryScroll::-webkit-scrollbar {
+        display: none;
+        /* Chrome/Safari/Webkit */
+    }
 </style>
 
-<div id="categoryScroll"
-     class="d-flex gap-3 overflow-auto py-3"
-     style="scroll-behavior:smooth; white-space:nowrap;">
+<div id="categoryScroll" class="d-flex gap-3 overflow-auto py-3" style="scroll-behavior:smooth; white-space:nowrap;">
 
     {% for category in categories %}
     <a href="{% url 'category' category.slug %}" style="text-decoration:none; color:inherit;">
         <div class="bg-white text-dark border rounded-4 shadow-sm p-4 text-center flex-shrink-0"
-             style="min-width:150px; cursor:pointer;">
+            style="min-width:150px; cursor:pointer;">
             {% if category.image %}
-                <img src="{{ category.image.url }}"
-                     alt="{{ category.name }}"
-                     class="mb-2 rounded-circle"
-                     style="width:60px;height:60px;object-fit:cover;">
+            <img src="{{ category.image.url }}" alt="{{ category.name }}" class="mb-2 rounded-circle"
+                style="width:60px;height:60px;object-fit:cover;">
             {% elif category.image_link %}
-                <img src="{{ category.image_link }}"
-                     alt="{{ category.name }}"
-                     class="mb-2 rounded-circle"
-                     style="width:60px;height:60px;object-fit:cover;">
+            <img src="{{ category.image_link }}" alt="{{ category.name }}" class="mb-2 rounded-circle"
+                style="width:60px;height:60px;object-fit:cover;">
             {% endif %}
             <div>{{ category.name }}</div>
         </div>
@@ -222,183 +365,249 @@
 </div>
 
 <script>
-function scrollCategories(amount) {
-    const container = document.getElementById('categoryScroll');
-    container.scrollBy({ left: amount, behavior: 'smooth' });
-}
+    function scrollCategories(amount) {
+        const container = document.getElementById('categoryScroll');
+        container.scrollBy({ left: amount, behavior: 'smooth' });
+    }
 </script>
 
 
-        <hr class="mt-5">
+<hr class="mt-5">
 
-        <!-- Best Selling Products -->
-        {% if best_selling_products %}
-        <div class="d-flex align-items-center gap-3 pt-5">
-            <div class="box-red" style="background-color: #DB4444; width: 50px; height: 50px; margin-bottom: 10px;border-radius: 12px;"></div>
-            <h4 style="color: #DB4444;"><b>This Month</b></h4>
-        </div>
-        <div class="d-flex flex-wrap align-items-center justify-content-between gap-4 mt-2">
-            <div><h3 class="fw-bold pt-4 mb-0" style="font-size: 42px;">Best Selling Products</h3></div>
-            <div><a href="/products/" class="btn p-3" style="background-color: #DB4444; color: white; border-radius: 6px; padding: 10px 20px; font-size: 16px;">view all</a></div>
-        </div>
-        
-        <div class="position-relative mt-4">
-            <div class="section-title">
-                <h3 class="fw-bold mb-0">Best Sellers</h3>
-                {% if best_selling_products|length > 5 %}
-                <div class="nav-buttons">
-                    <button class="btn btn-outline-dark btn-sm best-prev" style="border-radius:50%;width:40px;height:40px;"><i class="bi bi-chevron-left"></i></button>
-                    <button class="btn btn-outline-dark btn-sm best-next" style="border-radius:50%;width:40px;height:40px;"><i class="bi bi-chevron-right"></i></button>
-                </div>
-                {% endif %}
-            </div>
-            
-            <div class="swiper bestSwiper mt-3">
-                <div class="swiper-wrapper">
-                    {% for product in best_selling_products %}
-                    <div class="swiper-slide">
-                        <div class="card border-0 shadow-sm p-2 product-card" style="width:220px;">
-                            <a href="{% url 'product_detail' product.id %}">
-                                {% if product.image_link %}
-                                    <img src="{{ product.image_link }}" class="card-img-top">
-                                {% else %}
-                                    <img src="{{ product.image.url }}" class="card-img-top">
-                                {% endif %}
-                            </a>
-                            <div class="add-to-cart-overlay">
-                                <a href="{% url 'product_detail' product.id %}" class="btn btn-sm btn-danger"><i class="bi bi-cart-plus"></i> Add To Cart</a>
-                            </div>
-                            <a href="{% url 'product_detail' product.id %}" class="text-decoration-none text-dark">
-                                <p class="mb-0 fw-bold mt-2">{{ product.name }}</p>
-                            </a>
-                            <span>${{ product.price }}</span>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        {% endif %}
-
-        <!-- Music Experience block -->
-        <div class="row mt-5 g-0 bg-dark text-white rounded-4 overflow-hidden">
-            <div class="col-md-8 p-4">
-                <span class="badge bg-success mb-2">Categories</span>
-                <h2>Enhance Your <br>Music Experience</h2>
-                <button class="btn btn-success mt-3 rounded-pill px-4">Buy Now</button>
-            </div>
-            <div class="col-md-4 bg-secondary d-flex align-items-center justify-content-center">
-                <i class="bi bi-speaker fs-1"></i>
-            </div>
-        </div>
-
-        <!-- Explore Our Products -->
-        {% if explore_products %}
-        <div class="position-relative mt-5">
-            <div class="section-title">
-                <h5 class="fw-semibold">Explore Our Products</h5>
-                {% if explore_products|length > 5 %}
-                <div class="nav-buttons">
-                    <button class="btn btn-outline-dark btn-sm explore-prev" style="border-radius:50%;width:40px;height:40px;"><i class="bi bi-chevron-left"></i></button>
-                    <button class="btn btn-outline-dark btn-sm explore-next" style="border-radius:50%;width:40px;height:40px;"><i class="bi bi-chevron-right"></i></button>
-                </div>
-                {% endif %}
-            </div>
-            
-            <div class="swiper exploreSwiper mt-3">
-                <div class="swiper-wrapper">
-                    {% for product in explore_products %}
-                    <div class="swiper-slide">
-                        <div class="card border-0 shadow-sm p-2 product-card" style="width:220px;">
-                            <a href="{% url 'product_detail' product.id %}">
-                                {% if product.image_link %}
-                                    <img src="{{ product.image_link }}" class="card-img-top">
-                                {% else %}
-                                    <img src="{{ product.image.url }}" class="card-img-top">
-                                {% endif %}
-                            </a>
-                            <div class="add-to-cart-overlay">
-                                <a href="{% url 'product_detail' product.id %}" class="btn btn-sm btn-danger"><i class="bi bi-cart-plus"></i> Add To Cart</a>
-                            </div>
-                            <a href="{% url 'product_detail' product.id %}" class="text-decoration-none text-dark">
-                                <p class="fw-bold mt-1">{{ product.name }}</p>
-                            </a>
-                            <span>${{ product.price }}</span>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        {% endif %}
-
-        <!-- New Arrival -->
-        {% if new_arrival_products %}
-        <div class="position-relative mt-5">
-            <div class="section-title">
-                <h5 class="fw-semibold">New Arrival</h5>
-                {% if new_arrival_products|length > 5 %}
-                <div class="nav-buttons">
-                    <button class="btn btn-outline-dark btn-sm arrival-prev" style="border-radius:50%;width:40px;height:40px;"><i class="bi bi-chevron-left"></i></button>
-                    <button class="btn btn-outline-dark btn-sm arrival-next" style="border-radius:50%;width:40px;height:40px;"><i class="bi bi-chevron-right"></i></button>
-                </div>
-                {% endif %}
-            </div>
-            
-            <div class="swiper arrivalSwiper mt-3">
-                <div class="swiper-wrapper">
-                    {% for product in new_arrival_products %}
-                    <div class="swiper-slide">
-                        <div class="card border-0 shadow-sm p-2 product-card" style="width:220px;">
-                            <a href="{% url 'product_detail' product.id %}">
-                                {% if product.image_link %}
-                                    <img src="{{ product.image_link }}" class="card-img-top">
-                                {% else %}
-                                    <img src="{{ product.image.url }}" class="card-img-top">
-                                {% endif %}
-                            </a>
-                            <div class="add-to-cart-overlay">
-                                <a href="{% url 'product_detail' product.id %}" class="btn btn-sm btn-danger"><i class="bi bi-cart-plus"></i> Add To Cart</a>
-                            </div>
-                            <a href="{% url 'product_detail' product.id %}" class="text-decoration-none text-dark">
-                                <p class="fw-bold mt-1">{{ product.name }}</p>
-                            </a>
-                            <span>${{ product.price }}</span>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        {% endif %}
-
-        <!-- Featured service row -->
-        <div class="row row-cols-1 row-cols-md-3 g-4 mt-5 text-center">
-            <div class="col">
-                <div class="p-3 rounded-3 shadow-sm" style="background: var(--theme3);">
-                    <i class="bi bi-truck fs-1" style="color: var(--theme4);"></i>
-                    <h6 class="mt-2" style="color: var(--theme1);">FREE AND FAST DELIVERY</h6>
-                    <p class="small" style="color: var(--theme1);">Free delivery for all orders over $140</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="p-3 rounded-3 shadow-sm" style="background: var(--theme5);">
-                    <i class="bi bi-headset fs-1" style="color: var(--theme4);"></i>
-                    <h6 class="mt-2" style="color: var(--theme1);">24/7 CUSTOMER SERVICE</h6>
-                    <p class="small" style="color: var(--theme1);">Friendly 24/7 customer support</p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="p-3 rounded-3 shadow-sm" style="background: var(--theme2);">
-                    <i class="bi bi-shield-check fs-1" style="color: var(--theme4);"></i>
-                    <h6 class="mt-2" style="color: var(--theme1);">MONEY BACK GUARANTEE</h6>
-                    <p class="small" style="color: var(--theme1);">We return money within 30 days</p>
-                </div>
-            </div>
-        </div>
-
-     
+<!-- Best Selling Products -->
+{% if best_selling_products %}
+<div class="d-flex align-items-center gap-3 pt-5">
+    <div class="box-red"
+        style="background-color: #DB4444; width: 50px; height: 50px; margin-bottom: 10px;border-radius: 12px;"></div>
+    <h4 style="color: #DB4444;"><b>This Month</b></h4>
+</div>
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-4 mt-2">
+    <div>
+        <h3 class="fw-bold pt-4 mb-0" style="font-size: 42px;">Best Selling Products</h3>
     </div>
+    <div><a href="/products/" class="btn p-3"
+            style="background-color: #DB4444; color: white; border-radius: 6px; padding: 10px 20px; font-size: 16px;">view
+            all</a></div>
+</div>
+
+<div class="position-relative mt-4">
+    <div class="section-title">
+        <h3 class="fw-bold mb-0">Best Sellers</h3>
+        {% if best_selling_products|length > 5 %}
+        <div class="nav-buttons">
+            <button class="btn btn-outline-dark btn-sm best-prev" style="border-radius:50%;width:40px;height:40px;"><i
+                    class="bi bi-chevron-left"></i></button>
+            <button class="btn btn-outline-dark btn-sm best-next" style="border-radius:50%;width:40px;height:40px;"><i
+                    class="bi bi-chevron-right"></i></button>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="swiper bestSwiper mt-3">
+        <div class="swiper-wrapper">
+            {% for product in best_selling_products %}
+            <div class="swiper-slide">
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm text-center">
+
+                        <!-- Image Section -->
+                        <a href="{% url 'product_detail' product.id %}" class="text-decoration-none">
+                            <div class="ratio ratio-1x1">
+                                {% if product.image_link %}
+                                <img src="{{ product.image_link }}" class="img-fluid object-fit-cover"
+                                    alt="{{ product.name }}">
+                                {% else %}
+                                <img src="{{ product.image.url }}" class="img-fluid object-fit-cover"
+                                    alt="{{ product.name }}">
+                                {% endif %}
+                            </div>
+                        </a>
+
+                        <!-- Card Body -->
+                        <div class="card-body d-flex flex-column">
+
+                            <!-- Product Name -->
+                            <a href="{% url 'product_detail' product.id %}" class="text-decoration-none text-dark">
+                                <h6 class="fw-semibold mb-2">{{ product.name }}</h6>
+                            </a>
+
+                            <!-- Price -->
+                            <p class="fw-bold mb-3">RS{{ product.price }}</p>
+
+                            <!-- Button -->
+                            <a href="{% url 'product_detail' product.id %}" class="btn btn-danger btn-sm mt-auto">
+                                <i class="bi bi-cart-plus me-1"></i> Add To Cart
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Music Experience block -->
+<div class="row mt-5 g-0 bg-dark text-white rounded-4 overflow-hidden">
+    <div class="col-md-8 p-4">
+        <span class="badge bg-success mb-2">Categories</span>
+        <h2>Enhance Your <br>Music Experience</h2>
+        <button class="btn btn-success mt-3 rounded-pill px-4">Buy Now</button>
+    </div>
+    <div class="col-md-4 bg-secondary d-flex align-items-center justify-content-center">
+        <i class="bi bi-speaker fs-1"></i>
+    </div>
+</div>
+
+<!-- Explore Our Products -->
+{% if explore_products %}
+<div class="position-relative mt-5">
+    <div class="section-title">
+                <h3 class="fw-bold mb-0">Explore Our Products</h3>
+
+        {% if explore_products|length > 5 %}
+        <div class="nav-buttons">
+            <button class="btn btn-outline-dark btn-sm explore-prev"
+                style="border-radius:50%;width:40px;height:40px;"><i class="bi bi-chevron-left"></i></button>
+            <button class="btn btn-outline-dark btn-sm explore-next"
+                style="border-radius:50%;width:40px;height:40px;"><i class="bi bi-chevron-right"></i></button>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="swiper exploreSwiper mt-3">
+        <div class="swiper-wrapper">
+            {% for product in explore_products %}
+            <div class="swiper-slide">
+                 <div class="card h-100 border-0 shadow-sm text-center">
+
+                        <!-- Image Section -->
+                        <a href="{% url 'product_detail' product.id %}" class="text-decoration-none">
+                            <div class="ratio ratio-1x1">
+                                {% if product.image_link %}
+                                <img src="{{ product.image_link }}" class="img-fluid object-fit-cover"
+                                    alt="{{ product.name }}">
+                                {% else %}
+                                <img src="{{ product.image.url }}" class="img-fluid object-fit-cover"
+                                    alt="{{ product.name }}">
+                                {% endif %}
+                            </div>
+                        </a>
+
+                        <!-- Card Body -->
+                        <div class="card-body d-flex flex-column">
+
+                            <!-- Product Name -->
+                            <a href="{% url 'product_detail' product.id %}" class="text-decoration-none text-dark">
+                                <h6 class="fw-semibold mb-2">{{ product.name }}</h6>
+                            </a>
+
+                            <!-- Price -->
+                            <p class="fw-bold mb-3">RS{{ product.price }}</p>
+
+                            <!-- Button -->
+                            <a href="{% url 'product_detail' product.id %}" class="btn btn-danger btn-sm mt-auto">
+                                <i class="bi bi-cart-plus me-1"></i> Add To Cart
+                            </a>
+
+                        </div>
+                    </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- New Arrival -->
+{% if new_arrival_products %}
+<div class="position-relative mt-5">
+    <div class="section-title">
+        <h3 class="fw-bold mb-0">New Arrival</h3>
+
+        {% if new_arrival_products|length > 5 %}
+        <div class="nav-buttons">
+            <button class="btn btn-outline-dark btn-sm arrival-prev"
+                style="border-radius:50%;width:40px;height:40px;"><i class="bi bi-chevron-left"></i></button>
+            <button class="btn btn-outline-dark btn-sm arrival-next"
+                style="border-radius:50%;width:40px;height:40px;"><i class="bi bi-chevron-right"></i></button>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="swiper arrivalSwiper mt-3">
+        <div class="swiper-wrapper">
+            {% for product in new_arrival_products %}
+            <div class="swiper-slide">
+              <div class="card h-100 border-0 shadow-sm text-center">
+
+                        <!-- Image Section -->
+                        <a href="{% url 'product_detail' product.id %}" class="text-decoration-none">
+                            <div class="ratio ratio-1x1">
+                                {% if product.image_link %}
+                                <img src="{{ product.image_link }}" class="img-fluid object-fit-cover"
+                                    alt="{{ product.name }}">
+                                {% else %}
+                                <img src="{{ product.image.url }}" class="img-fluid object-fit-cover"
+                                    alt="{{ product.name }}">
+                                {% endif %}
+                            </div>
+                        </a>
+
+                        <!-- Card Body -->
+                        <div class="card-body d-flex flex-column">
+
+                            <!-- Product Name -->
+                            <a href="{% url 'product_detail' product.id %}" class="text-decoration-none text-dark">
+                                <h6 class="fw-semibold mb-2">{{ product.name }}</h6>
+                            </a>
+
+                            <!-- Price -->
+                            <p class="fw-bold mb-3">RS{{ product.price }}</p>
+
+                            <!-- Button -->
+                            <a href="{% url 'product_detail' product.id %}" class="btn btn-danger btn-sm mt-auto">
+                                <i class="bi bi-cart-plus me-1"></i> Add To Cart
+                            </a>
+
+                        </div>
+                    </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Featured service row -->
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-5 text-center">
+    <div class="col">
+        <div class="p-3 rounded-3 shadow-sm" style="background: var(--accent);">
+            <i class="bi bi-truck fs-1" style="color: var(--accent);"></i>
+            <h6 class="mt-2" style="color: var(--theme1);">FREE AND FAST DELIVERY</h6>
+            <p class="small" style="color: var(--theme1);">Free delivery for all orders over RS140</p>
+        </div>
+    </div>
+    <div class="col">
+        <div class="p-3 rounded-3 shadow-sm" style="background: var(--theme5);">
+            <i class="bi bi-headset fs-1" style="color: var(--accent);"></i>
+            <h6 class="mt-2" style="color: var(--theme1);">24/7 CUSTOMER SERVICE</h6>
+            <p class="small" style="color: var(--theme1);">Friendly 24/7 customer support</p>
+        </div>
+    </div>
+    <div class="col">
+        <div class="p-3 rounded-3 shadow-sm" style="background: var(--theme2);">
+            <i class="bi bi-shield-check fs-1" style="color: var(--accent);"></i>
+            <h6 class="mt-2" style="color: var(--theme1);">MONEY BACK GUARANTEE</h6>
+            <p class="small" style="color: var(--theme1);">We return money within 30 days</p>
+        </div>
+    </div>
+</div>
+
+
+</div>
 {% endblock %}
 
 {% block extra_js %}
@@ -406,113 +615,162 @@ function scrollCategories(amount) {
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Common Swiper configuration
-    const swiperConfig = {
-        slidesPerView: 5,
-        spaceBetween: 20,
-        loop: false,
-        breakpoints: {
-            320: { slidesPerView: 1, spaceBetween: 10 },
-            576: { slidesPerView: 2, spaceBetween: 15 },
-            768: { slidesPerView: 3, spaceBetween: 15 },
-            992: { slidesPerView: 4, spaceBetween: 20 },
-            1200: { slidesPerView: 5, spaceBetween: 20 }
-        },
-        on: {
-            init: function() {
-                updateNavButtons(this);
+    document.addEventListener('DOMContentLoaded', function () {
+        // Common Swiper configuration
+        const swiperConfig = {
+            slidesPerView: 5,
+            spaceBetween: 20,
+            loop: false,
+            breakpoints: {
+                320: { slidesPerView: 1, spaceBetween: 10 },
+                576: { slidesPerView: 2, spaceBetween: 15 },
+                768: { slidesPerView: 3, spaceBetween: 15 },
+                992: { slidesPerView: 4, spaceBetween: 20 },
+                1200: { slidesPerView: 5, spaceBetween: 20 }
             },
-            slideChange: function() {
-                updateNavButtons(this);
-            },
-            reachBeginning: function() {
-                updateNavButtons(this);
-            },
-            reachEnd: function() {
-                updateNavButtons(this);
+            on: {
+                init: function () {
+                    updateNavButtons(this);
+                },
+                slideChange: function () {
+                    updateNavButtons(this);
+                },
+                reachBeginning: function () {
+                    updateNavButtons(this);
+                },
+                reachEnd: function () {
+                    updateNavButtons(this);
+                }
+            }
+        };
+
+        // Function to update navigation buttons state
+        function updateNavButtons(swiper) {
+            const prevEl = swiper.navigation?.prevEl;
+            const nextEl = swiper.navigation?.nextEl;
+
+            if (prevEl) {
+                if (swiper.isBeginning) {
+                    prevEl.classList.add('swiper-button-disabled');
+                } else {
+                    prevEl.classList.remove('swiper-button-disabled');
+                }
+            }
+
+            if (nextEl) {
+                if (swiper.isEnd) {
+                    nextEl.classList.add('swiper-button-disabled');
+                } else {
+                    nextEl.classList.remove('swiper-button-disabled');
+                }
             }
         }
-    };
 
-    // Function to update navigation buttons state
-    function updateNavButtons(swiper) {
-        const prevEl = swiper.navigation?.prevEl;
-        const nextEl = swiper.navigation?.nextEl;
-        
-        if (prevEl) {
-            if (swiper.isBeginning) {
-                prevEl.classList.add('swiper-button-disabled');
-            } else {
-                prevEl.classList.remove('swiper-button-disabled');
+        // Initialize Flash Sales Swiper
+        if (document.querySelector('.flashSwiper')) {
+            const flashSwiper = new Swiper('.flashSwiper', {
+                ...swiperConfig,
+                navigation: {
+                    nextEl: '.flash-next',
+                    prevEl: '.flash-prev',
+                },
+            });
+        }
+
+        // Initialize Best Selling Swiper
+        if (document.querySelector('.bestSwiper')) {
+            const bestSwiper = new Swiper('.bestSwiper', {
+                ...swiperConfig,
+                navigation: {
+                    nextEl: '.best-next',
+                    prevEl: '.best-prev',
+                },
+            });
+        }
+
+        // Initialize Explore Products Swiper
+        if (document.querySelector('.exploreSwiper')) {
+            const exploreSwiper = new Swiper('.exploreSwiper', {
+                ...swiperConfig,
+                navigation: {
+                    nextEl: '.explore-next',
+                    prevEl: '.explore-prev',
+                },
+            });
+        }
+
+        // Initialize New Arrival Swiper
+        if (document.querySelector('.arrivalSwiper')) {
+            const arrivalSwiper = new Swiper('.arrivalSwiper', {
+                ...swiperConfig,
+                navigation: {
+                    nextEl: '.arrival-next',
+                    prevEl: '.arrival-prev',
+                },
+            });
+        }
+
+        // If there are less than 5 products, disable navigation buttons
+        const swipers = document.querySelectorAll('.swiper');
+        swipers.forEach(swiper => {
+            const slides = swiper.querySelectorAll('.swiper-slide').length;
+            const nextBtn = swiper.closest('.position-relative')?.querySelector('.swiper-button-next, [class*="-next"]');
+            const prevBtn = swiper.closest('.position-relative')?.querySelector('.swiper-button-prev, [class*="-prev"]');
+
+            if (slides <= 5) {
+                if (nextBtn) nextBtn.style.display = 'none';
+                if (prevBtn) prevBtn.style.display = 'none';
             }
-        }
-        
-        if (nextEl) {
-            if (swiper.isEnd) {
-                nextEl.classList.add('swiper-button-disabled');
-            } else {
-                nextEl.classList.remove('swiper-button-disabled');
-            }
-        }
-    }
-
-    // Initialize Flash Sales Swiper
-    if (document.querySelector('.flashSwiper')) {
-        const flashSwiper = new Swiper('.flashSwiper', {
-            ...swiperConfig,
-            navigation: {
-                nextEl: '.flash-next',
-                prevEl: '.flash-prev',
-            },
         });
-    }
-
-    // Initialize Best Selling Swiper
-    if (document.querySelector('.bestSwiper')) {
-        const bestSwiper = new Swiper('.bestSwiper', {
-            ...swiperConfig,
-            navigation: {
-                nextEl: '.best-next',
-                prevEl: '.best-prev',
-            },
-        });
-    }
-
-    // Initialize Explore Products Swiper
-    if (document.querySelector('.exploreSwiper')) {
-        const exploreSwiper = new Swiper('.exploreSwiper', {
-            ...swiperConfig,
-            navigation: {
-                nextEl: '.explore-next',
-                prevEl: '.explore-prev',
-            },
-        });
-    }
-
-    // Initialize New Arrival Swiper
-    if (document.querySelector('.arrivalSwiper')) {
-        const arrivalSwiper = new Swiper('.arrivalSwiper', {
-            ...swiperConfig,
-            navigation: {
-                nextEl: '.arrival-next',
-                prevEl: '.arrival-prev',
-            },
-        });
-    }
-
-    // If there are less than 5 products, disable navigation buttons
-    const swipers = document.querySelectorAll('.swiper');
-    swipers.forEach(swiper => {
-        const slides = swiper.querySelectorAll('.swiper-slide').length;
-        const nextBtn = swiper.closest('.position-relative')?.querySelector('.swiper-button-next, [class*="-next"]');
-        const prevBtn = swiper.closest('.position-relative')?.querySelector('.swiper-button-prev, [class*="-prev"]');
-        
-        if (slides <= 5) {
-            if (nextBtn) nextBtn.style.display = 'none';
-            if (prevBtn) prevBtn.style.display = 'none';
-        }
     });
+</script>
+
+
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const THREE_DAYS = 3 * 24 * 60 * 60 * 1000;
+    let targetTime = Date.now() + THREE_DAYS;
+
+    function updateFlashCountdown() {
+        let now = Date.now();
+        let diff = targetTime - now;
+
+        // Restart when finished
+        if (diff <= 0) {
+            targetTime = Date.now() + THREE_DAYS;
+            diff = THREE_DAYS;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        updateElement("flashDays", days);
+        updateElement("flashHours", hours);
+        updateElement("flashMinutes", minutes);
+        updateElement("flashSeconds", seconds);
+    }
+
+    function updateElement(id, value) {
+        const el = document.getElementById(id);
+        if (!el) return;
+
+        const formatted = String(value).padStart(2, "0");
+
+        if (el.innerText !== formatted) {
+            el.innerText = formatted;
+            el.classList.add("animate");
+            setTimeout(() => el.classList.remove("animate"), 200);
+        }
+    }
+
+    setInterval(updateFlashCountdown, 1000);
 });
 </script>
 {% endblock %}

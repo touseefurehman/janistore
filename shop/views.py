@@ -40,15 +40,23 @@ def home(request):
 	})
 
 def product_list(request):
-	query = request.GET.get('q', '').strip()
-	if query:
-		products = Product.objects.filter(name__icontains=query)
-	else:
-		products = Product.objects.all()
-	paginator = Paginator(products, 12)
-	page_number = request.GET.get('page')
-	page_obj = paginator.get_page(page_number)
-	return render(request, 'product_list.html', {'products': page_obj, 'query': query, 'page_obj': page_obj})
+    query = request.GET.get('q', '').strip()
+    page_number = request.GET.get('page', 1)
+    
+   
+    if query:
+        products = Product.objects.filter(name__icontains=query)
+    else:
+        products = Product.objects.all()
+    
+   
+    paginator = Paginator(products, 12)  
+    
+    
+    page_obj = paginator.get_page(page_number)
+	
+    
+    return render(request, 'product_list.html', {'page_obj': page_obj, 'query': query})
 
 from .models import ProductReview
 from django.contrib.auth.decorators import login_required
